@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مسابقة الأمن السيبراني وإدارة الحوادث</title>
+    <!-- Fonts & Tailwind CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        burgundy: {
+                            50: '#fdf2f4',
+                            100: '#fbe6e9',
+                            600: '#a81c39',
+                            700: '#80142b',
+                            800: '#671023',
+                            900: '#4a0a18',
+                        },
+                        beige: {
+                            50: '#faf8f5',
+                            100: '#f3eee7',
+                            200: '#e5dad0',
+                            300: '#d7c6b8',
+                            800: '#52463d'
+                        }
+                    },
+                    fontFamily: {
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background-color: #FAF8F5; }
+        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(215, 198, 184, 0.4); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #F3EEE7; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #80142B; border-radius: 4px; }
+        @keyframes pulse-gold {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        .celebrate-card { animation: pulse-gold 2s infinite ease-in-out; }
+    </style>
+</head>
+<body class="bg-beige-50 min-h-screen flex flex-col text-gray-800 antialiased selection:bg-burgundy-600 selection:text-white">
+
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-burgundy-900 via-burgundy-800 to-burgundy-700 text-white shadow-xl border-b-4 border-amber-500 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3 space-x-reverse">
+                <div class="w-11 h-11 bg-amber-500 rounded-xl flex items-center justify-center font-black text-burgundy-900 text-xl shadow-inner">
+                    D
+                </div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-black tracking-wide">مسابقة الأمن السيبراني وإدارة الكوارث</h1>
+                    <p class="text-xs text-amber-200 font-medium">Simply Secure IT Services | Index Financial Solutions Case Study</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 space-x-reverse">
+                <!-- Sound Toggle -->
+                <button id="soundToggleBtn" onclick="toggleSound()" class="bg-burgundy-800 hover:bg-burgundy-600 p-2 rounded-lg border border-burgundy-600 transition flex items-center space-x-1 space-x-reverse text-xs">
+                    <span id="soundIcon">🔊</span>
+                    <span id="soundText" class="hidden md:inline">الصوت مفعل</span>
+                </button>
+                <div class="text-left">
+                    <span class="text-xs block text-amber-300 font-bold">إعداد وتصميم</span>
+                    <span class="text-sm font-extrabold text-white">أ. منذر الزعبي</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 flex flex-col justify-center">
+
+        <!-- 1. Start Screen -->
+        <div id="startScreen" class="glass-card rounded-3xl p-6 md:p-10 max-w-3xl mx-auto w-full shadow-2xl text-center space-y-6 my-auto border-t-8 border-burgundy-700">
+            <div class="inline-block p-4 bg-burgundy-50 rounded-full text-burgundy-700 mb-2">
+                <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-black text-burgundy-900">المسابقة التقييمية للأمن السيبراني للأهداف ABC</h2>
+            <p class="text-gray-600 leading-relaxed text-sm md:text-base max-w-xl mx-auto">
+                اختبار سيناريوهات تحليلي يهدف لقياس وتقييم الاستجابة للحوادث السيبرانية وحلول التعافي من الكوارث (DRP / ISO 27031) الخاصة بشركة <strong class="text-burgundy-700">Simply Secure IT Services</strong> واستجابتها لعميلها <strong class="text-burgundy-700">Index Financial Solutions</strong>.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-right bg-beige-100 p-4 rounded-2xl border border-beige-300">
+                <div class="p-2">
+                    <span class="block text-xs text-gray-500 font-bold">عدد الأسئلة</span>
+                    <span class="text-base font-black text-burgundy-800">30 سؤال عشوائي</span>
+                </div>
+                <div class="p-2">
+                    <span class="block text-xs text-gray-500 font-bold">العلامة الكاملة</span>
+                    <span class="text-base font-black text-burgundy-800">100 درجة</span>
+                </div>
+                <div class="p-2">
+                    <span class="block text-xs text-gray-500 font-bold">الزمن المحدد</span>
+                    <span class="text-base font-black text-burgundy-800">20 دقيقة</span>
+                </div>
+            </div>
+
+            <!-- Student Selection -->
+            <div class="space-y-3 text-right max-w-md mx-auto">
+                <label class="block text-sm font-bold text-gray-700">اختر اسم الطالب/المتسابق:</label>
+                <select id="studentSelect" onchange="handleStudentSelectChange()" class="w-full p-3 rounded-xl border-2 border-beige-300 focus:border-burgundy-600 outline-none font-bold bg-white text-gray-800 shadow-sm">
+                    <option value="">-- اختر من قائمة الطلاب المعتمدة (1-17) --</option>
+                    <option value="طالب 01 - احمد زياد محمود رشيدات">طالب 01 - احمد زياد محمود رشيدات</option>
+                    <option value="طالب 02 - ايوب رائد محمد السخاينه">طالب 02 - ايوب رائد محمد السخاينه</option>
+                    <option value="طالب 03 - براء رافي نضمي ابو جمل">طالب 03 - براء رافي نضمي ابو جمل</option>
+                    <option value="طالب 04 - براء محمد عبدالعزيز الزريقات">طالب 04 - براء محمد عبدالعزيز الزريقات</option>
+                    <option value="طالب 05 - ذاكر سامر إبراهيم ارشيدات">طالب 05 - ذاكر سامر إبراهيم ارشيدات</option>
+                    <option value="طالب 06 - غيث مفضي مرعي الردابسة">طالب 06 - غيث مفضي مرعي الردابسة</option>
+                    <option value="طالب 07 - فادي حسن مرعي حجازي">طالب 07 - فادي حسن مرعي حجازي</option>
+                    <option value="طالب 08 - ماجد هاني حامد المصري">طالب 08 - ماجد هاني حامد المصري</option>
+                    <option value="طالب 09 - مجد زياد محمد الصميعات">طالب 09 - مجد زياد محمد الصميعات</option>
+                    <option value="طالب 10 - محمد خلدون جمعان السخني">طالب 10 - محمد خلدون جمعان السخني</option>
+                    <option value="طالب 11 - محمد خير جلال محمد درابسة">طالب 11 - محمد خير جلال محمد درابسة</option>
+                    <option value="طالب 12 - محمد فادي نادر الدرابسة">طالب 12 - محمد فادي نادر الدرابسة</option>
+                    <option value="طالب 13 - محمد يوسف غازي الحايك">طالب 13 - محمد يوسف غازي الحايك</option>
+                    <option value="طالب 14 - يامن حسين علي الخطيب">طالب 14 - يامن حسين علي الخطيب</option>
+                    <option value="طالب 15 - عباده قاسم محمد الرشيدات">طالب 15 - عباده قاسم محمد الرشيدات</option>
+                    <option value="طالب 16 - راشد احمد فاضل المصري">طالب 16 - راشد احمد فاضل المصري</option>
+                    <option value="طالب 17 - يزن محمد عبد المجيد ابو حمود">طالب 17 - يزن محمد عبد المجيد ابو حمود</option>
+                    <option value="custom">-- إدخال اسم آخر --</option>
+                </select>
+
+                <input type="text" id="customStudentName" placeholder="اكتب اسم الطالب هنا..." class="hidden w-full p-3 rounded-xl border-2 border-beige-300 focus:border-burgundy-600 outline-none font-bold bg-white text-gray-800 shadow-sm">
+            </div>
+
+            <button onclick="startQuiz()" class="w-full max-w-md bg-gradient-to-r from-burgundy-800 to-burgundy-600 hover:from-burgundy-700 hover:to-burgundy-500 text-white font-black py-4 rounded-xl text-lg shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1">
+                🚀 ابدأ المسابقة والسباق الزمني
+            </button>
+        </div>
+
+        <!-- 2. Quiz Interface -->
+        <div id="quizScreen" class="hidden space-y-4 max-w-5xl mx-auto w-full">
+            <!-- Timer & Info Bar -->
+            <div class="glass-card rounded-2xl p-4 flex flex-wrap justify-between items-center shadow-lg border-r-8 border-burgundy-700 gap-2">
+                <div class="flex items-center space-x-3 space-x-reverse">
+                    <span id="currentStudentDisplay" class="bg-burgundy-50 text-burgundy-800 px-3 py-1.5 rounded-lg text-sm font-bold border border-burgundy-200">
+                        الطالب: ---
+                    </span>
+                    <span id="questionProgress" class="bg-beige-200 text-gray-800 px-3 py-1.5 rounded-lg text-sm font-bold">
+                        السؤال: 1 / 30
+                    </span>
+                </div>
+
+                <!-- Live Timer Bar -->
+                <div class="flex items-center space-x-3 space-x-reverse w-full md:w-auto">
+                    <span class="text-xs font-bold text-gray-500">الوقت المتبقي:</span>
+                    <div class="w-36 md:w-48 bg-gray-200 rounded-full h-3 overflow-hidden border border-gray-300">
+                        <div id="timerBar" class="bg-emerald-500 h-full w-full transition-all duration-1000"></div>
+                    </div>
+                    <span id="timerText" class="font-mono text-lg font-black text-burgundy-900 min-w-[50px]">20:00</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                <!-- Questions Navigator Sidebar -->
+                <div class="lg:col-span-1 glass-card rounded-2xl p-4 shadow-lg order-2 lg:order-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-black text-burgundy-900 border-b pb-2 mb-3">خريطة الأسئلة (30)</h3>
+                        <div id="gridNavigator" class="grid grid-cols-6 gap-1.5 max-h-56 lg:max-h-none overflow-y-auto custom-scrollbar p-1">
+                            <!-- JS populated grid -->
+                        </div>
+                    </div>
+                    <button onclick="finishQuizEarly()" class="w-full mt-4 bg-burgundy-100 hover:bg-burgundy-200 text-burgundy-900 border border-burgundy-300 font-bold py-2 rounded-xl text-xs transition">
+                        🏁 إنهاء وتسليم المسابقة
+                    </button>
+                </div>
+
+                <!-- Main Question Box -->
+                <div class="lg:col-span-3 glass-card rounded-2xl p-6 shadow-xl space-y-6 order-1 lg:order-2 border-t-4 border-amber-500">
+                    <div class="flex justify-between items-start gap-3">
+                        <span id="qCategory" class="text-xs bg-amber-100 text-amber-900 font-bold px-2.5 py-1 rounded-md border border-amber-300">
+                            Simply Secure IT & Index Financial Scenario
+                        </span>
+                        <span id="qIdTag" class="text-xs text-gray-400 font-mono">#Q-01</span>
+                    </div>
+
+                    <div id="qText" class="text-base md:text-lg font-extrabold text-gray-900 leading-relaxed text-right bg-beige-50 p-4 rounded-xl border border-beige-200">
+                        جاري تحميل السؤال...
+                    </div>
+
+                    <!-- Options list -->
+                    <div id="optionsContainer" class="space-y-3">
+                        <!-- Options generated by JS -->
+                    </div>
+
+                    <!-- Navigation buttons -->
+                    <div class="flex justify-between items-center pt-4 border-t">
+                        <button id="prevBtn" onclick="navigateQuestion(-1)" class="bg-beige-200 hover:bg-beige-300 text-gray-800 font-bold px-5 py-2.5 rounded-xl transition text-sm disabled:opacity-40">
+                            السابق
+                        </button>
+                        <button id="nextBtn" onclick="navigateQuestion(1)" class="bg-burgundy-700 hover:bg-burgundy-800 text-white font-bold px-6 py-2.5 rounded-xl transition text-sm shadow-md">
+                            التالي
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Final Result Screen (Simplified & Large Font) -->
+        <div id="resultsScreen" class="hidden glass-card rounded-3xl p-8 md:p-14 max-w-3xl mx-auto w-full shadow-2xl space-y-8 border-t-8 border-burgundy-700 text-center my-auto">
+            <div class="space-y-4">
+                <span class="inline-block p-4 bg-burgundy-50 rounded-full text-burgundy-700 text-3xl">🎯</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-gray-600">نتيجة المسابقة النهائية</h2>
+                <p id="studentResultTitle" class="text-3xl md:text-5xl font-black text-burgundy-900 leading-tight">
+                    الطالب: ---
+                </p>
+            </div>
+
+            <!-- Huge Score Display -->
+            <div class="bg-gradient-to-br from-beige-100 to-amber-50 p-8 md:p-12 rounded-3xl border-4 border-amber-400 shadow-inner my-6">
+                <span class="block text-lg md:text-xl font-bold text-gray-600 mb-2">العلامة المستحقة</span>
+                <div class="flex items-center justify-center space-x-2 space-x-reverse">
+                    <span id="scoreText100" class="text-6xl md:text-8xl font-black text-burgundy-800 tracking-tight">0</span>
+                    <span class="text-4xl md:text-6xl font-black text-amber-600">/ 100</span>
+                </div>
+                <div id="gradeBadge" class="inline-block mt-6 px-6 py-2 rounded-full text-lg font-black bg-burgundy-800 text-white shadow">
+                    ---
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-4 justify-center pt-4">
+                <button onclick="location.reload()" class="bg-burgundy-800 hover:bg-burgundy-700 text-white font-extrabold px-8 py-4 rounded-xl text-lg transition shadow-xl hover:scale-105">
+                    🔄 تقديم محاولة جديدة
+                </button>
+            </div>
+        </div>
+
+        <!-- 4. Celebration Modal Popup (For Score > 90) -->
+        <div id="celebrationModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
+            <div class="glass-card celebrate-card bg-white rounded-3xl p-8 md:p-12 max-w-lg w-full text-center space-y-6 border-4 border-amber-400 shadow-2xl relative">
+                <div class="text-6xl animate-bounce">🏆</div>
+                <h2 class="text-3xl md:text-4xl font-black text-burgundy-900">مـبــارك التميّـز والإبـداع!</h2>
+                <p class="text-lg font-bold text-gray-700">لقد حققت نتيجة استثنائية بعلامة متفوقة:</p>
+                
+                <div class="bg-amber-100 p-6 rounded-2xl border-2 border-amber-300">
+                    <span id="modalStudentName" class="block text-xl font-extrabold text-burgundy-900 mb-2"></span>
+                    <span id="modalScoreText" class="text-5xl font-black text-amber-600">100 / 100</span>
+                </div>
+
+                <p class="text-sm font-bold text-emerald-700 bg-emerald-50 p-3 rounded-xl border border-emerald-200">
+                    🌟 حصلت على تقدير Distinction المتميز بامتياز!
+                </p>
+
+                <button onclick="closeCelebrationModal()" class="w-full bg-burgundy-800 hover:bg-burgundy-700 text-white font-black py-3 rounded-xl text-lg shadow-lg">
+                    عرض النتيجة ➔
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-burgundy-900 text-white py-4 text-center border-t border-burgundy-800 mt-auto">
+        <p class="text-xs font-bold text-beige-200">جميع الحقوق محفوظة © 2026 | مادة أمن المعلومات وإدارة الحوادث (BTEC Unit 11)</p>
+        <p class="text-xs text-amber-400 font-extrabold mt-1">إعداد المعلم: أ. منذر الزعبي - Al-Turra Secondary School</p>
+    </footer>
+
+    <!-- Audio Web API & Logic -->
+    <script>
+        // -------------------------------------------------------------
+        // AUDIO SYNTHESIZER (Web Audio API)
+        // -------------------------------------------------------------
+        let soundEnabled = true;
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            document.getElementById('soundText').innerText = soundEnabled ? 'الصوت مفعل' : 'الصوت مكتوم';
+            document.getElementById('soundIcon').innerText = soundEnabled ? '🔊' : '🔇';
+        }
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.05, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.05);
+                } else if (type === 'fanfare') {
+                    const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+                    notes.forEach((freq, idx) => {
+                        const o = ctx.createOscillator();
+                        const g = ctx.createGain();
+                        o.connect(g);
+                        g.connect(ctx.destination);
+                        o.type = 'sine';
+                        o.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.12);
+                        g.gain.setValueAtTime(0.15, ctx.currentTime + idx * 0.12);
+                        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.12 + 0.35);
+                        o.start(ctx.currentTime + idx * 0.12);
+                        o.stop(ctx.currentTime + idx * 0.12 + 0.35);
+                    });
+                }
+            } catch (e) {
+                console.log('Audio playback error:', e);
+            }
+        }
+
+        // -------------------------------------------------------------
+        // QUESTION BANK (100 High-Level Questions)
+        // -------------------------------------------------------------
+        const questionBank = [];
+
+        const topics = [
+            "Simply Secure IT CSIRT Escalation & Client SLA Protocols",
+            "Index Financial Solutions: False Alarm vs Ransomware Incident",
+            "Disaster Recovery (DRP) vs Incident Response for Financial Systems",
+            "Calculating RTO & RPO for High-Frequency Trading Databases",
+            "Forensics Preservation & Disk Imaging in Financial Breaches",
+            "ISO 27031 Standards & PDCA Implementation in MSP/Cyber Security Firms",
+            "Hot Site vs Redundant Data Centers for Financial Services",
+            "Malware Containment & Financial Data Isolation Protocols",
+            "Regulatory Reporting: Financial Authorities, Police & Legal Compliance",
+            "Post-Incident Forensic Reporting & Client Lessons Learned"
+        ];
+
+        for (let i = 1; i <= 100; i++) {
+            const topic = topics[(i - 1) % topics.length];
+            let qText = "";
+            let options = [];
+            let correctIndex = 0;
+            let rationale = "";
+
+            if (i % 10 === 1) {
+                qText = `تعاقدت شركة Index Financial Solutions مع شركة Simply Secure IT Services لإدارة الأمن السيبراني. عند رصد اختراق لسيرفر المعاملات المالية المباشرة، قام مدير الحادث في Simply Secure بعزل السيرفر فوراً. ما هو الدور الدقيق لقائد فريق CSIRT في هذا الوقت؟`;
+                options = [
+                    "التفرغ للتحقيق الجنائي الرقمي ومسح ملفات السجل بنفسه.",
+                    "التواصل المباشر مع مجلس إدارة Index Financial والأعضاء التنفيذيين لإبقائهم على علم وإدارة الاتصال الإداري.",
+                    "إيقاف سيرفرات باقي العملاء لدى Simply Secure كإجراء احترازي عام.",
+                    "إبلاغ وسائل الإعلام فوراً قبل التواصل مع إدارة العميل."
+                ];
+                correctIndex = 1;
+                rationale = "قائد فريق CSIRT يمثل حلقة الوصل الإدارية مع مجلس الإدارة والإدارة العليا لإبقائهم على اطلاع بينما ينشغل مدير الحادث بالاستجابة التقنية الميدانية.";
+            } else if (i % 10 === 2) {
+                qText = `أبلغ موظف المقاصة المالية في Index Financial عن ظهور تنبيه خطير بحظر أداة تحليل الأسهم الجديدة من قبل جدار الحماية التابع لـ Simply Secure. بعد التقييم الأولي تبين أن الأداة آمنة تماماً وتم تصنيفها خاطئاً. كيف يجب التعامل مع البلاغ؟`;
+                options = [
+                    "اعتباره إنذاراً كاذباً (False Alarm) وتحديث قواعد الجدار الناري دون تفعيل خطة الكوارث.",
+                    "اعتباره حادثاً أمنياً من الدرجة الأولى وإغلاق جميع المعاملات المالية فوراً.",
+                    "مسح الجهاز بالكامل وإعادة تنصيب نظام التشغيل كإجراء احترازي.",
+                    "إغلاق التنبيه وتجاهله تماماً دون تسجيل أي ملاحظة في السجلات."
+                ];
+                correctIndex = 0;
+                rationale = "الإنذار الكاذب يحدث عندما يبلغ نظام الأمان عن مشكلة بشكل غير صحيح، والتحقق الأولي يمنع إرباك العمل وتفعيل خطة الطوارئ بلا داعٍ.";
+            } else if (i % 10 === 3) {
+                qText = `تعرض مركز البيانات الرئيسي لشركة Index Financial لفيضان مائي أدى لتلف سيرفرات قاعدة البيانات المالية. أي الإجراءات التالية تعتمد عليها Simply Secure لضمان استمرارية الخدمات وفق معيار ISO 27031؟`;
+                options = [
+                    "تفعيل خطة التعافي من الكوارث (DRP) ونقل العمليات لموقع بديل (Redundant / Hot Site).",
+                    "الاكتفاء بتوثيق الحادث وإرسال تقرير المراجعة والدروس المستفادة.",
+                    "إيقاف جميع أنظمة الشركة لحين جفاف غرفة السيرفرات بالكامل.",
+                    "تغيير كلمات مرور جميع الموظفين كخطوة استجابة أولى للفيضان."
+                ];
+                correctIndex = 0;
+                rationale = "تختص خطة DRP بالكوارث المادية (كالحريق والفيضان) وتفعيل المواقع البديلة والأنظمة الحرجة وفق ISO 27031.";
+            } else if (i % 10 === 4) {
+                qText = `تعتمد Index Financial على نسخ احتياطي كل ساعتين لقاعدة بيانات الأسهم. وقع هجوم برمجية فدية وتوقفت الخدمة الساعة 03:00 عصراً، وكانت آخر نسخة ناجحة الساعة 01:00 عصراً. كم تبلغ قيمة مؤشر RPO؟`;
+                options = [
+                    "ساعتان (2 Hours) وهو مقدار البيانات والمعاملات المسموح بفقدانها.",
+                    "ثلاث ساعات وهي مدة التوقف الكلي للخدمة.",
+                    "24 ساعة بناءً على المعايير اليومية للنسخ الاحتياطي.",
+                    "صفر، لأن الأنظمة المالية لا يمكن أن تفقد أي بيانات."
+                ];
+                correctIndex = 0;
+                rationale = "RPO (Recovery Point Objective) يمثل كمية البيانات أو الزمن المسموح بفقدانه بين آخر نسخة احتياطية ووقت وقوع الحادث (من 01:00 إلى 03:00 = ساعتان).";
+            } else if (i % 10 === 5) {
+                qText = `طلبت الجهات القضائية من شركة Simply Secure تقديم الأدلة الرقمية الخاصة باختراق Index Financial لملاحقة المهاجمين. ما هي الممارسة القياسية الجنائية المفضلة؟`;
+                options = [
+                    "أخذ نسخة مطابقة للقرص (Bit-stream Disk Image) بالكامل للحفاظ على السجلات والتكوينات دون تغيير.",
+                    "نسخ الملفات المصابة يدوياً وفحصها على جهاز شخصي للمحقق.",
+                    "تعديل سجلات النظام (Logs) لإخفاء الثغرة التنظيمية قبل تسليمها.",
+                    "تصدير جداول البيانات بصيغة Excel وتسليمها للشرطة."
+                ];
+                correctIndex = 0;
+                rationale = "أخذ Disk Image مطابقة يحافظ على الأدلة الرقمية والتكوينات المقبولة قانونياً أمام المحاكم.";
+            } else if (i % 10 === 6) {
+                qText = `تقوم Simply Secure بتطبيق منهجية PDCA لشركة Index Financial. عند قيام الفريق بإجراء محاكاة لكارثة اختراق واختبار كفاءة أوقات التعافي (RTO)، في أي مرحلة يندرج هذا الاختبار؟`;
+                options = [
+                    "مرحلة التحقق (Check) للتحقق من فاعلية خطة التعافي ومقارنة النتائج بالأهداف.",
+                    "مرحلة التخطيط (Plan) لصياغة السياسة العامة للأمن السيبراني.",
+                    "مرحلة التنفيذ (Do) المتمثلة في بناء غرفة السيرفرات البديلة.",
+                    "مرحلة التصرف (Act) الخاصة بتعيين موظفين جدد."
+                ];
+                correctIndex = 0;
+                rationale = "مرحلة Check تتضمن إجراء الاختبارات والتأكد من مطابقة أداء خطة DRP للمؤشرات المحددة (RTO & RPO).";
+            } else if (i % 10 === 7) {
+                qText = `تطلب Index Financial الاستمرارية الفورية للأنظمة بحيث لا يتجاوز وقت التعافي (RTO) أكثر من 5 دقائق في حال انهيار الخادم الرئيسي. ما هو الخيار الاستراتيجي الأنسب؟`;
+                options = [
+                    "إعداد موقع مكرر نشط متزامن بالكامل (Hot Site / Redundant Infrastructure).",
+                    "الاعتماد على موقع بارد (Cold Site) يحتاج توفير أجهزة جديدة وتثبيت برامج.",
+                    "حفظ النسخ الاحتياطية على أجهزة تخزين سحابية غير متصلة.",
+                    "التعاقد مع استشاريين خارجيين للحضور خلال 12 ساعة."
+                ];
+                correctIndex = 0;
+                rationale = "الموقع المكرر النشط (Hot Site) هو الخيار الوحيد الذي يحقق أهداف RTO المتدنية جداً (دقائق معدودة) للأنظمة المالية الحيوية.";
+            } else if (i % 10 === 8) {
+                qText = `اكتشف فريق CSIRT في Simply Secure هجوم برمجية فدية يتسرب داخل شبكة Index Financial عبر حساب مستخدم مخترق. ما هي الخطوة الفورية الميدانية لاحتواء الضرر؟`;
+                options = [
+                    "تعطيل حساب المستخدم فوراً وفصل الأجهزة المتأثرة عن الشبكة لحصر الهجوم.",
+                    "إعادة تشغيل خادم المقاصة الرئيسية للحد من انتشار التشفير.",
+                    "التواصل مع المهاجمين عبر البريد الإلكتروني للتفاوض على الفدية.",
+                    "الانتهاء من كتابة تقرير الحادث قبل اتخاذ أي إجراء تقني."
+                ];
+                correctIndex = 0;
+                rationale = "احتواء الضرر يتطلب إجراءات فورية كتعطيل الوصول للشبكة وحسابات المستخدمين لحماية باقي الأجهزة والبيانات الحساسة.";
+            } else if (i % 10 === 9) {
+                qText = `تسربت بيانات مالية وشخصية لعملاء Index Financial. ما هو الإجراء القانوني والتنظيمي المتوجب على Simply Secure و Index Financial اتخاذه؟`;
+                options = [
+                    "إخطار الجهات التنظيمية المالية والشرطة والجهات القانونية فور تأكيد التسريب لحماية المؤسسة قانونياً.",
+                    "التكتم على الموضوع وتجنب إبلاغ أي جهة تنظيمية لمنع خسارة المبيعات.",
+                    "إبلاغ الشرطة فقط في حال تم طلب مبالغ فدية مالية ضخمة.",
+                    "انتهاء عقد العمل مع العميل بدلاً من الإبلاغ الرسمية."
+                ];
+                correctIndex = 0;
+                rationale = "يتطلب الإفصاح والتواصل مع الجهات القانونية والشرطة الالتزام بالقوانين وحماية المركز القانوني للمؤسسة عند تسريب البيانات الشخصية والمالية.";
+            } else {
+                qText = `بعد التعافي الكامل وإعادة تشغيل أنظمة Index Financial، عقدت Simply Secure جلسة مراجعة الحادث (Lessons Learned). أي مما يلي يعتبر الهدف الأساسي لهذه الجلسة؟`;
+                options = [
+                    "استخلاص الدروس وتحديث الضوابط الأمنية وتعديل سياسات التدريب لمنع تكرار الاختراق.",
+                    "تعديل سجلات الأحداث (Logs) لحذف تفاصيل الأخطاء البشرية.",
+                    "إلغاء عقود الصيانة المعتمدة مع جميع الشركات المزودة.",
+                    "معاقبة موظف تقنية المعلومات بشكل علني أمام زملائه."
+                ];
+                correctIndex = 0;
+                rationale = "جلسات الدروس المستفادة تهدف لتطوير المنظومة الأمنية، تحديث الإجراءات الاحترازية، وتعديل التدريب لتقليل خطر التكرار مستقبلاً.";
+            }
+
+            questionBank.push({
+                id: i,
+                category: topic,
+                text: `[سيناريو حالة Simply Secure / Index Financial #${i}] ${qText}`,
+                options: options,
+                correct: correctIndex,
+                rationale: rationale
+            });
+        }
+
+        // -------------------------------------------------------------
+        // QUIZ STATE VARIABLES
+        // -------------------------------------------------------------
+        let currentStudent = "";
+        let activeQuestions = [];
+        let userAnswers = {};
+        let currentQIndex = 0;
+        let timerInterval = null;
+        let timeRemaining = 20 * 60;
+
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function handleStudentSelectChange() {
+            const select = document.getElementById('studentSelect');
+            const customInput = document.getElementById('customStudentName');
+            if (select.value === 'custom') {
+                customInput.classList.remove('hidden');
+            } else {
+                customInput.classList.add('hidden');
+            }
+        }
+
+        function startQuiz() {
+            const select = document.getElementById('studentSelect');
+            const customInput = document.getElementById('customStudentName');
+
+            if (select.value === 'custom') {
+                currentStudent = customInput.value.trim();
+            } else {
+                currentStudent = select.value;
+            }
+
+            if (!currentStudent) {
+                alert('يرجى اختيار أو إدخال اسم الطالب أولاً للبدء!');
+                return;
+            }
+
+            playSound('click');
+
+            const shuffledBank = shuffleArray(questionBank);
+            const selected30 = shuffledBank.slice(0, 30);
+
+            activeQuestions = selected30.map((q) => {
+                const originalOptions = q.options.map((opt, idx) => ({ text: opt, isCorrect: idx === q.correct }));
+                const shuffledOpts = shuffleArray(originalOptions);
+                const newCorrectIndex = shuffledOpts.findIndex(item => item.isCorrect);
+
+                return {
+                    id: q.id,
+                    category: q.category,
+                    text: q.text,
+                    options: shuffledOpts.map(item => item.text),
+                    correct: newCorrectIndex,
+                    rationale: q.rationale
+                };
+            });
+
+            userAnswers = {};
+            currentQIndex = 0;
+            timeRemaining = 20 * 60;
+
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('quizScreen').classList.remove('hidden');
+            document.getElementById('currentStudentDisplay').innerText = `الطالب: ${currentStudent}`;
+
+            buildGridNavigator();
+            renderQuestion();
+            startTimer();
+        }
+
+        function startTimer() {
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    alert('⏰ انتهى الوقت المحدد للمسابقة (20 دقيقة)! سيتم تسليم الإجابات تلقائياً.');
+                    finishQuiz();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const formattedMin = String(minutes).padStart(2, '0');
+            const formattedSec = String(seconds).padStart(2, '0');
+            document.getElementById('timerText').innerText = `${formattedMin}:${formattedSec}`;
+
+            const percentage = (timeRemaining / (20 * 60)) * 100;
+            const bar = document.getElementById('timerBar');
+            bar.style.width = `${percentage}%`;
+
+            if (percentage < 20) {
+                bar.className = 'bg-red-600 h-full w-full transition-all duration-1000';
+            } else if (percentage < 50) {
+                bar.className = 'bg-amber-500 h-full w-full transition-all duration-1000';
+            } else {
+                bar.className = 'bg-emerald-500 h-full w-full transition-all duration-1000';
+            }
+        }
+
+        function buildGridNavigator() {
+            const grid = document.getElementById('gridNavigator');
+            grid.innerHTML = '';
+            for (let i = 0; i < 30; i++) {
+                const btn = document.createElement('button');
+                btn.id = `gridBtn-${i}`;
+                btn.className = 'h-8 rounded-lg font-bold text-xs flex items-center justify-center border transition bg-gray-100 border-gray-300 text-gray-700 hover:bg-beige-200';
+                btn.innerText = i + 1;
+                btn.onclick = () => jumpToQuestion(i);
+                grid.appendChild(btn);
+            }
+        }
+
+        function updateGridStatus() {
+            for (let i = 0; i < 30; i++) {
+                const btn = document.getElementById(`gridBtn-${i}`);
+                if (!btn) continue;
+
+                if (i === currentQIndex) {
+                    btn.className = 'h-8 rounded-lg font-black text-xs flex items-center justify-center border-2 border-burgundy-800 bg-burgundy-600 text-white shadow-md';
+                } else if (userAnswers[i] !== undefined) {
+                    btn.className = 'h-8 rounded-lg font-bold text-xs flex items-center justify-center border border-emerald-500 bg-emerald-100 text-emerald-900';
+                } else {
+                    btn.className = 'h-8 rounded-lg font-bold text-xs flex items-center justify-center border border-gray-300 bg-gray-100 text-gray-700 hover:bg-beige-200';
+                }
+            }
+        }
+
+        function renderQuestion() {
+            const q = activeQuestions[currentQIndex];
+            document.getElementById('questionProgress').innerText = `السؤال: ${currentQIndex + 1} / 30`;
+            document.getElementById('qCategory').innerText = q.category;
+            document.getElementById('qIdTag').innerText = `#Q-Bank-${q.id}`;
+            document.getElementById('qText').innerText = q.text;
+
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+
+            const selectedOption = userAnswers[currentQIndex];
+
+            q.options.forEach((optText, idx) => {
+                const isSelected = selectedOption === idx;
+                const optBtn = document.createElement('div');
+                optBtn.onclick = () => selectOption(idx);
+                optBtn.className = `p-4 rounded-xl border-2 transition cursor-pointer flex items-center space-x-3 space-x-reverse ${
+                    isSelected 
+                        ? 'border-burgundy-700 bg-burgundy-50 shadow-md text-burgundy-900 font-extrabold' 
+                        : 'border-beige-200 bg-white hover:bg-beige-50 hover:border-beige-300 text-gray-800 font-medium'
+                }`;
+
+                optBtn.innerHTML = `
+                    <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center font-bold text-xs shrink-0 ${
+                        isSelected ? 'border-burgundy-700 bg-burgundy-700 text-white' : 'border-gray-400 text-gray-500'
+                    }">
+                        ${String.fromCharCode(65 + idx)}
+                    </div>
+                    <div class="text-sm md:text-base flex-1">${optText}</div>
+                `;
+                container.appendChild(optBtn);
+            });
+
+            document.getElementById('prevBtn').disabled = currentQIndex === 0;
+            document.getElementById('nextBtn').innerText = currentQIndex === 29 ? 'تسليم وإنهاء 🏁' : 'التالي ➔';
+
+            updateGridStatus();
+        }
+
+        function selectOption(optIndex) {
+            playSound('click');
+            userAnswers[currentQIndex] = optIndex;
+            renderQuestion();
+        }
+
+        function navigateQuestion(direction) {
+            playSound('click');
+            if (direction === 1 && currentQIndex === 29) {
+                finishQuizEarly();
+                return;
+            }
+            currentQIndex = Math.max(0, Math.min(29, currentQIndex + direction));
+            renderQuestion();
+        }
+
+        function jumpToQuestion(index) {
+            playSound('click');
+            currentQIndex = index;
+            renderQuestion();
+        }
+
+        function finishQuizEarly() {
+            const answeredCount = Object.keys(userAnswers).length;
+            if (answeredCount < 30) {
+                const confirmFinish = confirm(`لقد أجبت على ${answeredCount} من أصل 30 سؤالاً. هل أنت تأكد من تسليم المسابقة الآن؟`);
+                if (!confirmFinish) return;
+            }
+            finishQuiz();
+        }
+
+        function finishQuiz() {
+            clearInterval(timerInterval);
+
+            let correctCount = 0;
+            activeQuestions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.correct) {
+                    correctCount++;
+                }
+            });
+
+            // Calculate Score out of 100
+            const score100 = Math.round((correctCount / 30) * 100);
+
+            document.getElementById('quizScreen').classList.add('hidden');
+            document.getElementById('resultsScreen').classList.remove('hidden');
+
+            document.getElementById('studentResultTitle').innerText = `${currentStudent}`;
+            document.getElementById('scoreText100').innerText = score100;
+
+            const badge = document.getElementById('gradeBadge');
+            if (score100 >= 85) {
+                badge.className = "inline-block mt-6 px-6 py-2 rounded-full text-lg font-black bg-emerald-700 text-white shadow";
+                badge.innerText = "Distinction (تميز عالي D)";
+            } else if (score100 >= 70) {
+                badge.className = "inline-block mt-6 px-6 py-2 rounded-full text-lg font-black bg-blue-700 text-white shadow";
+                badge.innerText = "Merit (إتقان M)";
+            } else if (score100 >= 50) {
+                badge.className = "inline-block mt-6 px-6 py-2 rounded-full text-lg font-black bg-amber-600 text-white shadow";
+                badge.innerText = "Pass (قبول P)";
+            } else {
+                badge.className = "inline-block mt-6 px-6 py-2 rounded-full text-lg font-black bg-red-700 text-white shadow";
+                badge.innerText = "Referral (إعادة تقديم)";
+            }
+
+            // Check if Score > 90 for Celebration Popup & Confetti
+            if (score100 >= 90) {
+                playSound('fanfare');
+                triggerConfetti();
+                
+                document.getElementById('modalStudentName').innerText = currentStudent;
+                document.getElementById('modalScoreText').innerText = `${score100} / 100`;
+                document.getElementById('celebrationModal').classList.remove('hidden');
+            } else {
+                playSound('fanfare');
+            }
+        }
+
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                const duration = 3 * 1000;
+                const end = Date.now() + duration;
+
+                (function frame() {
+                    confetti({
+                        particleCount: 5,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 }
+                    });
+                    confetti({
+                        particleCount: 5,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 }
+                    });
+
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                })();
+            }
+        }
+
+        function closeCelebrationModal() {
+            document.getElementById('celebrationModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
