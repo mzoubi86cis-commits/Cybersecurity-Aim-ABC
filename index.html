@@ -748,6 +748,72 @@
         function closeCelebrationModal() {
             document.getElementById('celebrationModal').classList.add('hidden');
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // منع القائمة عند الضغط بالزر الأيمن
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+// منع اختصارات لوحة المفاتيح
+document.onkeydown = function(e) {
+  // F12
+  if (e.keyCode == 123) return false;
+  // Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+U
+  if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) return false;
+  if (e.ctrlKey && e.keyCode == 85) return false;
+};
+
+        // تشويش المحتوى عند الخروج من المتصفح أو فقدان التركيز
+window.addEventListener('blur', () => {
+  document.body.style.filter = 'blur(10px)';
+});
+
+// إعادة المحتوى عند العودة
+window.addEventListener('focus', () => {
+  document.body.style.filter = 'none';
+});
+
+
+        document.addEventListener('keyup', (e) => {
+  if (e.key === 'PrintScreen') {
+    navigator.clipboard.writeText(''); // مسح الحافظة فوراً
+    alert('التقاط الشاشة غير مسموح به في هذا الموقع');
+  }
+});
+
+
+        // فور فقدان المتصفح للتركيز (عند فتح Snipping Tool)
+window.addEventListener('blur', () => {
+  document.body.style.display = 'none'; // أو تشويش: document.body.style.filter = 'blur(50px)';
+});
+
+// عند العودة للمتصفح
+window.addEventListener('focus', () => {
+  document.body.style.display = 'block';
+});
+
+
+        document.addEventListener('keydown', (e) => {
+  // كشف زر Windows أو Shift+Win+S
+  if (e.key === 'Meta' || e.key === 'PrintScreen') {
+    document.body.style.opacity = '0'; // إخفاء المحتوى فوراً
+    setTimeout(() => {
+      document.body.style.opacity = '1'; // إعادته بعد ثانية
+    }, 2000);
+  }
+});
+
+        
     </script>
 </body>
 </html>
